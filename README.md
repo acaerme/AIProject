@@ -2,6 +2,7 @@
 
 University group project, *Basic Lab: Introduction to AI (26S)*.
 **Authors:** Maksim Poksevatkin, Islam Elikhanov.
+**Repository:** <https://github.com/acaerme/AIProject>
 
 We segment the customers of a retail company into a small number of interpretable
 groups using **K-Means clustering**, implemented **twice**:
