@@ -1,0 +1,37 @@
+# ── Data ───────────────────────────────────────────────────────────────
+# The Kaggle dataset is NOT committed (licensing + it's data, not code).
+# Download marketing_campaign.csv manually and place it in data/ — see README.
+data/
+
+# ── Virtual environment ────────────────────────────────────────────────
+# Disposable, machine-specific, non-portable. Recreate from requirements.txt.
+.venv/
+venv/
+env/
+
+# ── Credentials / secrets ──────────────────────────────────────────────
+# Defensive: we do NOT use the Kaggle API, but if that ever changes the CLI
+# drops a kaggle.json token in the working dir — never let it reach git.
+kaggle.json
+.env
+*.pem
+
+# ── Python noise ───────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+.ipynb_checkpoints/
+
+# ── Caches ─────────────────────────────────────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# ── OS / editor junk ───────────────────────────────────────────────────
+.DS_Store
+.vscode/
+.idea/
+*.swp

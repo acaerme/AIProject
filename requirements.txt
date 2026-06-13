@@ -1,0 +1,27 @@
+# Exact, pinned dependencies for the Customer Personality K-Means project.
+# Produced with `pip freeze` on Python 3.14 so a grader can reproduce the
+# environment exactly:  pip install -r requirements.txt
+#
+# DIRECT dependencies (the ones the code imports). scipy ships with
+# scikit-learn and is used for scipy.optimize.linear_sum_assignment in compare.py.
+matplotlib==3.11.0
+numpy==2.4.6
+pandas==3.0.3
+scikit-learn==1.9.0
+scipy==1.17.1
+seaborn==0.13.2
+
+# TRANSITIVE dependencies (pulled in automatically by the libraries above; pinned
+# so the environment is fully reproducible).
+contourpy==1.3.3
+cycler==0.12.1
+fonttools==4.63.0
+joblib==1.5.3
+kiwisolver==1.5.0
+narwhals==2.22.1
+packaging==26.2
+pillow==12.2.0
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+six==1.17.0
+threadpoolctl==3.6.0
