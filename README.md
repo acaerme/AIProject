@@ -37,9 +37,28 @@ download.
 
 ---
 
-## Setup
+## Quick start (recommended)
 
-Requires **Python 3.11+** (developed on 3.14). From the project root:
+Requires **Python 3.11+** (developed on 3.14).
+
+1. Download the dataset and place it at `data/marketing_campaign.csv` (see
+   [Dataset](#dataset) above).
+2. From the project root, run:
+
+   ```bash
+   bash run.sh
+   ```
+
+   This **creates an isolated virtual environment, installs the pinned
+   dependencies, and runs the full pipeline** in one command — no manual setup.
+   All plots are written to `figures/`.
+
+---
+
+## Manual setup (cross-platform / fallback)
+
+If you prefer to set things up by hand (or are on Windows, where `run.sh` does
+not apply), run the equivalent steps yourself:
 
 ```bash
 # 1. Create an isolated virtual environment
@@ -51,16 +70,8 @@ source .venv/bin/activate          # macOS / Linux
 
 # 3. Install the exact pinned dependencies
 pip install -r requirements.txt
-```
 
----
-
-## Running
-
-With the virtual environment active and `data/marketing_campaign.csv` in place:
-
-```bash
-# Run the whole pipeline end to end (Steps 1-10). Saves all plots to figures/.
+# 4. Run the whole pipeline end to end (Steps 1-10); saves all plots to figures/
 python main.py
 ```
 
@@ -96,6 +107,7 @@ python -m src.compare      # Step 9: scratch vs sklearn agreement
 │   ├── cluster.py         # Steps 8 & 10 — final model + profiling + naming
 │   └── compare.py         # Step 9  — scratch vs sklearn comparison
 ├── main.py                # runs the full pipeline
+├── run.sh                 # one command: venv + install + run
 ├── requirements.txt       # pinned dependencies
 └── README.md
 ```
