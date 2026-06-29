@@ -2,10 +2,8 @@ from pathlib import Path
 
 import pandas as pd
 
-# Dataset is not committed; download from Kaggle into data/ (see README).
 DATA_PATH = "data/marketing_campaign.csv"
 EXPECTED_SHAPE = (2240, 29)
-
 
 def load(path: str = DATA_PATH) -> pd.DataFrame:
     """Read the tab-separated dataset into a DataFrame."""
@@ -18,13 +16,10 @@ def load(path: str = DATA_PATH) -> pd.DataFrame:
             "and place marketing_campaign.csv in the data/ folder. See README.md."
         )
 
-    # The file is tab-separated despite the .csv extension.
     df = pd.read_csv(path, sep="\t")
     return df
 
-
 def summarize(df: pd.DataFrame) -> None:
-    """Print shape, dtypes and per-column missing-value counts."""
     print("=" * 70)
     print("STEP 1 — DATA LOADING & SANITY CHECK")
     print("=" * 70)
@@ -42,7 +37,6 @@ def summarize(df: pd.DataFrame) -> None:
 
 
 def check_shape(df: pd.DataFrame, expected: tuple = EXPECTED_SHAPE) -> None:
-    """Assert the loaded data matches the documented 2240x29 shape."""
     assert df.shape == expected, (
         f"Unexpected shape {df.shape}; expected {expected}. "
         "The dataset on disk does not match the documented version."

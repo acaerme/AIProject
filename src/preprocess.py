@@ -4,7 +4,6 @@ from sklearn.preprocessing import StandardScaler
 
 RANDOM_STATE = 42
 
-# The 9 numeric features we cluster on.
 CLUSTER_FEATURES = [
     "Age",
     "Income",
@@ -17,21 +16,17 @@ CLUSTER_FEATURES = [
     "Tenure",
 ]
 
-# Campaign/complaint columns kept out of clustering and used only to profile clusters.
 DESCRIPTOR_COLS = [
     "AcceptedCmp1", "AcceptedCmp2", "AcceptedCmp3", "AcceptedCmp4", "AcceptedCmp5",
     "Response",
     "Complain",
 ]
 
-# Number of clusters, chosen from the elbow + silhouette plots (see select_k.py).
 N_CLUSTERS = 3
 
-# One row has Income = 666666 (data-entry error); the next-highest real income is 162397.
 INCOME_OUTLIER_CAP = 200_000
 
 
-# Collapse junk Marital_Status values into the real categories.
 MARITAL_MAP = {
     "Married": "Married",
     "Together": "Together",
@@ -81,7 +76,6 @@ MNT_COLS = [
     "MntFishProducts", "MntSweetProducts", "MntGoldProds",
 ]
 
-# 3-bucket education for readable profiling (descriptor only, not a clustering feature).
 EDUCATION_MAP = {
     "Basic": "Undergraduate",
     "2n Cycle": "Undergraduate",
@@ -98,10 +92,8 @@ def engineer(df: pd.DataFrame) -> pd.DataFrame:
     print("=" * 70)
     df = df.copy()
 
-    # Raw format is day-month-year; pandas 3.0 requires an explicit format.
     df["Dt_Customer"] = pd.to_datetime(df["Dt_Customer"], format="%d-%m-%Y")
 
-    # Anchor time-based features to the latest enrollment date (data is a 2014 snapshot).
     reference_date = df["Dt_Customer"].max()
     reference_year = int(reference_date.year)
     print(f"Reference date (latest enrollment): {reference_date.date()} "
@@ -112,7 +104,6 @@ def engineer(df: pd.DataFrame) -> pd.DataFrame:
     df["Total_Children"] = df["Kidhome"] + df["Teenhome"]
     df["Tenure"] = (reference_date - df["Dt_Customer"]).dt.days
 
-    # Descriptor-only engineered columns (not used for clustering).
     df["Has_Partner"] = df["Marital_Status"].isin(["Married", "Together"]).astype(int)
     df["Education_Level"] = df["Education"].map(EDUCATION_MAP)
 
@@ -121,7 +112,6 @@ def engineer(df: pd.DataFrame) -> pd.DataFrame:
 
     df = df.drop(columns=["ID"])
 
-    # Drop zero-variance columns (catches Z_CostContact, Z_Revenue).
     zero_var = [c for c in df.columns if df[c].nunique() == 1]
     if zero_var:
         df = df.drop(columns=zero_var)
@@ -131,12 +121,6 @@ def engineer(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_matrix(df: pd.DataFrame):
-    """Select the 9 clustering features and standardize them.
-
-    Returns (X_scaled, fitted_scaler, feature_df_in_original_units). Scaling is
-    required because K-Means uses Euclidean distance, which would otherwise be
-    dominated by the large-range features (Income, Total_Spend).
-    """
     print("\n" + "=" * 70)
     print("STEP 4 & 5 — FEATURE SELECTION + SCALING")
     print("=" * 70)
@@ -158,7 +142,6 @@ def build_matrix(df: pd.DataFrame):
 
 
 def run_preprocessing(df: pd.DataFrame):
-    """Convenience: clean -> engineer -> build_matrix. Returns (df_feat, X, scaler)."""
     df_clean = clean(df)
     df_feat = engineer(df_clean)
     X_scaled, scaler, _ = build_matrix(df_feat)

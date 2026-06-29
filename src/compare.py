@@ -13,7 +13,7 @@ def best_match_accuracy(labels_a, labels_b):
     Returns (accuracy, mapping, confusion_matrix).
     """
     C = confusion_matrix(labels_a, labels_b)
-    row_ind, col_ind = linear_sum_assignment(-C)   # Hungarian: maximise overlap
+    row_ind, col_ind = linear_sum_assignment(-C)  
     matched = C[row_ind, col_ind].sum()
     accuracy = matched / C.sum()
     mapping = {int(b): int(a) for a, b in zip(row_ind, col_ind)}

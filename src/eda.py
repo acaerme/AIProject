@@ -7,7 +7,6 @@ from src.preprocess import CLUSTER_FEATURES
 
 
 def plot_distributions(df_feat, path="figures/eda_distributions.png"):
-    """Histogram (with KDE) of each clustering feature, in real units."""
     n = len(CLUSTER_FEATURES)
     ncols = 3
     nrows = (n + ncols - 1) // ncols
@@ -27,7 +26,6 @@ def plot_distributions(df_feat, path="figures/eda_distributions.png"):
 
 
 def plot_correlation(df_feat, path="figures/eda_correlation.png"):
-    """Correlation heatmap of the nine clustering features (Pearson)."""
     corr = df_feat[CLUSTER_FEATURES].corr()
     plt.figure(figsize=(8.5, 7))
     sns.heatmap(corr, annot=True, fmt=".2f", cmap="RdBu_r", center=0,
@@ -41,10 +39,6 @@ def plot_correlation(df_feat, path="figures/eda_correlation.png"):
 
 
 def run(df_feat):
-    """Generate the EDA figures and print the strongest correlations."""
-    print("=" * 70)
-    print("EDA — feature distributions + correlations")
-    print("=" * 70)
     plot_distributions(df_feat)
     corr = plot_correlation(df_feat)
     pairs = (corr.where(~(corr.values == 1.0))
@@ -57,7 +51,6 @@ def run(df_feat):
             continue
         seen.add(key)
         top.append((a, b, v))
-    print("\nStrongest feature correlations (|r|, deduplicated):")
     for a, b, v in sorted(top, key=lambda t: -abs(t[2]))[:8]:
         print(f"  {a:20s} vs {b:20s} r = {v:+.2f}")
     return corr

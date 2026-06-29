@@ -10,7 +10,6 @@ K_RANGE = range(2, 11)
 
 
 def sweep(X, k_range=K_RANGE):
-    """Fit KMeans for each k and collect inertia + silhouette."""
     print("=" * 70)
     print("STEP 6 — CHOOSING k (elbow + silhouette sweep)")
     print("=" * 70)
@@ -30,7 +29,6 @@ def sweep(X, k_range=K_RANGE):
 
 
 def plot_elbow(ks, inertias, path="figures/elbow.png"):
-    """Save the inertia-vs-k elbow curve."""
     plt.figure(figsize=(7, 4.5))
     plt.plot(ks, inertias, "o-", color="#2c7fb8")
     plt.xlabel("Number of clusters (k)")
@@ -45,7 +43,6 @@ def plot_elbow(ks, inertias, path="figures/elbow.png"):
 
 
 def plot_silhouette(ks, silhouettes, path="figures/silhouette.png"):
-    """Save the silhouette-vs-k curve, marking the peak."""
     plt.figure(figsize=(7, 4.5))
     plt.plot(ks, silhouettes, "o-", color="#d95f0e")
     best_k = ks[int(max(range(len(silhouettes)), key=lambda i: silhouettes[i]))]
@@ -65,7 +62,6 @@ def plot_silhouette(ks, silhouettes, path="figures/silhouette.png"):
 
 
 def recommend_k(ks, silhouettes):
-    """Report the silhouette-max k and a recommendation (not a blind argmax)."""
     sil_max_k = ks[int(max(range(len(silhouettes)), key=lambda i: silhouettes[i]))]
     print(f"\nSilhouette is maximised at k={sil_max_k}.")
     print("Recommendation: inspect the elbow + silhouette plots. If silhouette "
@@ -75,7 +71,6 @@ def recommend_k(ks, silhouettes):
 
 
 def run(X):
-    """Full Step 6: sweep, save both plots, print recommendation."""
     ks, inertias, silhouettes = sweep(X)
     plot_elbow(ks, inertias)
     plot_silhouette(ks, silhouettes)
